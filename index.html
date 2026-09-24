@@ -4,134 +4,113 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>AKD Sinyal Masası</title>
-<meta name="description" content="Günlük hacmi 100 milyon TL üstü BIST hisselerinde aracı kurum dağılımı taraması: AL ve SAT listesi.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 2 2%22%3E%3Crect width=%221%22 height=%222%22 fill=%22%231E9B5E%22/%3E%3Crect x=%221%22 width=%221%22 height=%222%22 fill=%22%23D23B2F%22/%3E%3C/svg%3E">
+<meta name="description" content="BIST aracı kurum dağılımı taraması: AL ve SAT listesi.">
+<meta name="theme-color" content="#08090B">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 2 2%22%3E%3Crect width=%221%22 height=%222%22 fill=%22%2326A17A%22/%3E%3Crect x=%221%22 width=%221%22 height=%222%22 fill=%22%23E0464E%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
 <style>
 :root{
-  --ground:#EEF1F5; --panel:#FFFFFF; --panel-2:#F6F8FB; --line:#D9DFE8; --ink:#0F1B2B; --ink-2:#3A4658; --muted:#667386;
-  --navy:#16304F; --navy-ink:#FFFFFF;
-  --al:#0A7B45; --al-soft:#E3F3EA; --al-ink:#FFFFFF; --al-bar:#1E9B5E;
-  --sat:#B8261B; --sat-soft:#FBE7E5; --sat-ink:#FFFFFF; --sat-bar:#D23B2F;
-  --track:#E6EAF0; --shadow:0 1px 2px rgba(15,27,43,.06),0 2px 8px rgba(15,27,43,.05);
-  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   color-scheme:dark;
-  --ground:#0C1320; --panel:#131C2B; --panel-2:#182234; --line:#263247; --ink:#E7ECF3; --ink-2:#C2CCDA; --muted:#8B97AA;
-  --navy:#0A1628; --navy-ink:#E7ECF3;
-  --al:#17A360; --al-soft:#10301F; --al-ink:#FFFFFF; --al-bar:#27B971;
-  --sat:#D9443A; --sat-soft:#3A1614; --sat-ink:#FFFFFF; --sat-bar:#EA5A4F;
-  --track:#223049; --shadow:0 1px 2px rgba(0,0,0,.3);
-}}
-:root[data-theme="dark"]{
-  color-scheme:dark;
-  --ground:#0C1320; --panel:#131C2B; --panel-2:#182234; --line:#263247; --ink:#E7ECF3; --ink-2:#C2CCDA; --muted:#8B97AA;
-  --navy:#0A1628; --navy-ink:#E7ECF3;
-  --al:#17A360; --al-soft:#10301F; --al-ink:#FFFFFF; --al-bar:#27B971;
-  --sat:#D9443A; --sat-soft:#3A1614; --sat-ink:#FFFFFF; --sat-bar:#EA5A4F;
-  --track:#223049; --shadow:0 1px 2px rgba(0,0,0,.3);
+  --bg:#08090B; --bg-2:#0E1013; --bg-3:#14171B; --line:#1F2329; --line-2:#2A2F37;
+  --tx:#D9DDE3; --tx-2:#A3AAB5; --mut:#6B7380; --amber:#E0A43A;
+  --up:#26A17A; --up-dim:#123B2E; --dn:#E0464E; --dn-dim:#43181B;
+  --sans:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
 }
 *{box-sizing:border-box}
-body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.45;margin:0}
-.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+html,body{background:var(--bg)}
+body{margin:0;color:var(--tx);font-family:var(--sans);font-size:14px;line-height:1.4;-webkit-font-smoothing:antialiased}
+.n{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:12.5px}
 
-/* Top bar */
-.top{background:var(--navy);color:var(--navy-ink);padding:14px 20px}
-.top-in{max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px}
-.brand{display:flex;align-items:center;gap:10px}
-.mark{width:28px;height:28px;border-radius:6px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;flex:none}
-.mark i:first-child{background:var(--al-bar)} .mark i:last-child{background:var(--sat-bar)}
-.brand h1{font-size:17px;font-weight:600;margin:0;letter-spacing:.2px}
-.brand small{display:block;font-size:11px;opacity:.7;letter-spacing:.6px;text-transform:uppercase}
+/* Status bar */
+.bar{border-bottom:1px solid var(--line);background:var(--bg)}
+.bar-in{max-width:1880px;margin:0 auto;padding:10px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 28px}
+.logo{display:flex;align-items:baseline;gap:10px}
+.logo b{font-size:15px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase}
+.logo span{font-size:12px;color:var(--mut);letter-spacing:1px;text-transform:uppercase}
 .sp{flex:1}
-.stamp{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:12.5px}
-.stamp b{font-weight:600}
-.live{display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,.1);font-size:11.5px;letter-spacing:.4px;text-transform:uppercase}
-.live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--al-bar)}
-.live.close::before{background:#9AA7BA}
-select{font:inherit;font-size:12.5px;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:5px 8px;max-width:100%}
-select:focus-visible{outline:2px solid var(--al-bar);outline-offset:2px}
+.kv{display:flex;flex-direction:column;gap:1px}
+.kv small{font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:var(--mut)}
+.kv strong{font-weight:500;font-size:13px}
+.phase{color:var(--amber)}
+.phase::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--amber);margin-right:6px;vertical-align:1px}
+.phase.closed{color:var(--tx-2)} .phase.closed::before{background:var(--mut)}
+select{font:inherit;font-family:var(--mono);font-size:12px;color:var(--tx);background:var(--bg-2);border:1px solid var(--line-2);border-radius:2px;padding:4px 6px;max-width:100%}
+select:focus-visible{outline:1px solid var(--amber);outline-offset:1px}
 
-/* Rule strip */
-.wrap{max-width:1240px;margin:0 auto;padding-inline:20px;padding-block:18px 32px}
-.rules{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;font-size:12.5px;color:var(--ink-2);padding-bottom:16px;border-bottom:1px solid var(--line);margin-bottom:18px}
-.rules .lbl{font-size:11px;letter-spacing:.7px;text-transform:uppercase;color:var(--muted);font-weight:600}
-.rules span.r{display:inline-flex;gap:6px;align-items:center}
-.rules i{font-style:normal;width:8px;height:8px;border-radius:2px;display:inline-block}
-.note{font-size:12.5px;color:var(--muted);margin:-6px 0 16px}
+/* Summary strip */
+.wrap{max-width:1880px;margin:0 auto;padding-inline:20px;padding-block:16px 28px}
+.strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);background:var(--bg-2);margin-bottom:14px}
+.strip>div{padding:10px 14px;border-right:1px solid var(--line);min-width:0}
+.strip>div:last-child{border-right:0}
+.strip small{display:block;font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:var(--mut);margin-bottom:3px}
+.strip .big{font-family:var(--mono);font-size:22px;font-weight:700;letter-spacing:-.5px}
+.strip .up{color:var(--up)} .strip .dn{color:var(--dn)}
+.strip .rule{font-size:12px;color:var(--tx-2);line-height:1.35}
+@media (max-width:760px){.strip{grid-template-columns:1fr 1fr}.strip>div:nth-child(2){border-right:0}.strip>div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+.note{font-size:12px;color:var(--amber);margin:0 0 14px;padding:7px 12px;border-left:2px solid var(--amber);background:rgba(224,164,58,.06)}
 
-/* Board */
-.board{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
-@media (max-width:820px){.board{grid-template-columns:1fr}}
-.col{display:flex;flex-direction:column;gap:10px;min-width:0}
-.head{display:flex;align-items:center;justify-content:space-between;gap:12px;border-radius:10px;padding:12px 16px;color:var(--al-ink);box-shadow:var(--shadow)}
-.head.al{background:var(--al)} .head.sat{background:var(--sat);color:var(--sat-ink)}
-.head .t{font-size:26px;font-weight:700;letter-spacing:2px}
-.head .d{font-size:12px;opacity:.92;text-align:right;line-height:1.35}
-.head .c{font-family:var(--mono);font-size:22px;font-weight:600;background:rgba(255,255,255,.18);border-radius:8px;padding:2px 12px;min-width:44px;text-align:center}
-
-.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:grid;gap:9px;box-shadow:var(--shadow)}
-.card.al{border-left:4px solid var(--al)} .card.sat{border-left:4px solid var(--sat)}
-.r1{display:flex;align-items:baseline;gap:10px}
-.sym{font-size:19px;font-weight:700;letter-spacing:.5px}
-.px{margin-left:auto;font-size:17px;font-weight:600}
-.px small{font-size:11px;color:var(--muted);font-weight:400;margin-left:3px;font-family:var(--sans)}
-.dom{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;align-items:center}
-.dom .who{font-size:13px;color:var(--ink-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.dom .who em{font-style:normal;color:var(--muted);font-size:11.5px;margin-right:4px}
-.dom .pct{font-size:13px;font-weight:600}
-.bar{grid-column:1/-1;height:6px;background:var(--track);border-radius:3px;position:relative;overflow:hidden}
-.bar b{position:absolute;inset:0 auto 0 0;border-radius:3px}
-.card.al .bar b{background:var(--al-bar)} .card.sat .bar b{background:var(--sat-bar)}
-.bar s{position:absolute;top:-2px;bottom:-2px;left:50%;width:1px;background:var(--muted);opacity:.6}
-.kv{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 12px;padding-top:9px;border-top:1px dashed var(--line)}
-.kv div{min-width:0}
-.kv dt{font-size:10.5px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin:0 0 2px}
-.kv dd{margin:0;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.chip{display:inline-block;padding:1px 7px;border-radius:5px;font-weight:600}
-.chip.below{background:var(--al-soft);color:var(--al)} .chip.near{background:var(--panel-2);color:var(--ink-2)}
-.chip.above{background:var(--sat-soft);color:var(--sat)}
-.empty{background:var(--panel);border:1px dashed var(--line);border-radius:10px;padding:26px 16px;text-align:center;color:var(--muted);font-size:13px}
-.state{padding:40px 16px;text-align:center;color:var(--muted)}
-footer{max-width:1240px;margin:0 auto;padding-inline:20px;padding-block:0 28px;font-size:11.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 20px}
-@media (max-width:460px){.head .t{font-size:22px}}
-@media (prefers-reduced-motion:no-preference){.card{transition:border-color .15s}}
+/* Boards */
+.boards{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+@media (max-width:1600px){.boards{grid-template-columns:1fr}}
+.board{border:1px solid var(--line);background:var(--bg-2);min-width:0}
+.bh{display:flex;align-items:center;gap:12px;padding:0 14px 0 0;border-bottom:1px solid var(--line)}
+.tag{font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:3px;color:#fff;padding:9px 16px;min-width:74px;text-align:center}
+.board.al .tag{background:var(--up)} .board.sat .tag{background:var(--dn)}
+.bh .desc{font-size:12px;color:var(--tx-2)}
+.bh .cnt{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--mut)}
+.bh .cnt b{color:var(--tx);font-size:14px}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:640px}
+th{font-size:10px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--mut);text-align:right;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap;background:var(--bg-2)}
+th.l,td.l{text-align:left}
+th.grp{border-left:1px solid var(--line)}
+td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap;vertical-align:middle}
+td.grp{border-left:1px solid var(--line)}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover td{background:var(--bg-3)}
+.sym{font-family:var(--mono);font-weight:700;font-size:13px;letter-spacing:.5px;color:#fff}
+.brk{color:var(--tx-2);font-size:13px;max-width:130px;overflow:hidden;text-overflow:ellipsis}
+.pct{display:inline-flex;align-items:center;gap:7px;justify-content:flex-end}
+.meter{width:46px;height:4px;background:var(--line-2);position:relative}
+.meter i{position:absolute;inset:0 auto 0 0}
+.meter::after{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:var(--mut)}
+.board.al .meter i{background:var(--up)} .board.sat .meter i{background:var(--dn)}
+.opp .meter i{background:var(--mut)!important}
+.d{font-family:var(--mono);font-size:12px;font-weight:500;padding:2px 6px;border-radius:2px}
+.d.good{color:var(--up);background:var(--up-dim)} .d.bad{color:var(--dn);background:var(--dn-dim)} .d.flat{color:var(--tx-2);background:var(--bg-3)}
+.dim{color:var(--mut)}
+.empty{padding:28px 16px;text-align:center;color:var(--mut);font-size:13px}
+footer{max-width:1880px;margin:0 auto;padding-inline:20px;padding-block:0 24px;font-size:11px;color:var(--mut);display:flex;flex-wrap:wrap;gap:4px 24px;letter-spacing:.2px}
 </style>
-
 </head>
 <body>
-<header class="top">
-  <div class="top-in">
-    <div class="brand"><span class="mark" aria-hidden="true"><i></i><i></i></span>
-      <div><h1>AKD Sinyal Masası</h1><small id="uni">Hacmi 100 mn TL üstü hisseler · Aracı kurum dağılımı</small></div></div>
-    <span class="sp"></span>
-    <div class="stamp">
-      <span class="live" id="phase">—</span>
-      <span>Veri: <b class="num" id="asof">—</b></span>
-      <label for="scanSel" style="display:flex;gap:6px;align-items:center">Tarama <select id="scanSel" aria-label="Tarama seç"></select></label>
-    </div>
-  </div>
-</header>
+<header class="bar"><div class="bar-in">
+  <div class="logo"><b>AKD Sinyal Masası</b><span id="uni">BIST 100</span></div>
+  <span class="sp"></span>
+  <div class="kv"><small>Durum</small><strong class="phase" id="phase">—</strong></div>
+  <div class="kv"><small>Veri zamanı</small><strong class="n" id="asof">—</strong></div>
+  <div class="kv"><small><label for="scanSel">Tarama</label></small><select id="scanSel"></select></div>
+</div></header>
 
 <main class="wrap">
-  <div class="rules" id="rules">
-    <span class="lbl">Kurallar</span>
-    <span class="r"><i style="background:var(--al)"></i><span id="ruleAl">AL: alışta tek kurum &gt; %50 · satışta hiçbir kurum &gt; %50 değil · fiyat alıcı maliyetinin en fazla %1 üstünde</span></span>
-    <span class="r"><i style="background:var(--sat)"></i><span id="ruleSat">SAT: satışta tek kurum &gt; %50 · alışta hiçbir kurum &gt; %50 değil · fiyat satıcı maliyetinin en fazla %1 altında</span></span>
-  </div>
+  <section class="strip" aria-label="Özet">
+    <div><small>AL sinyali</small><span class="big up" id="sAl">–</span></div>
+    <div><small>SAT sinyali</small><span class="big dn" id="sSat">–</span></div>
+    <div><small>AL kuralı</small><span class="rule" id="ruleAl">Alışta tek kurum &gt; %50, satışta hiçbiri &gt; %50 değil, fiyat alıcı maliyetinin en çok %1 üstünde</span></div>
+    <div><small>SAT kuralı</small><span class="rule" id="ruleSat">Satışta tek kurum &gt; %50, alışta hiçbiri &gt; %50 değil, fiyat satıcı maliyetinin en çok %1 altında</span></div>
+  </section>
   <p class="note" id="note" hidden></p>
-  <div class="board" id="board">
-    <section class="col" aria-labelledby="hAl">
-      <div class="head al"><span class="t" id="hAl">AL</span><span class="d">Tek kurum topluyor<br>satış dağınık</span><span class="c num" id="cAl">–</span></div>
-      <div id="listAl"><div class="state">Yükleniyor…</div></div>
+  <div class="boards">
+    <section class="board al" aria-label="AL">
+      <div class="bh"><span class="tag">AL</span><span class="desc">Tek kurum topluyor, satış dağınık</span><span class="cnt"><b id="cAl">0</b> hisse</span></div>
+      <div class="scroll" id="listAl"><div class="empty">Yükleniyor…</div></div>
     </section>
-    <section class="col" aria-labelledby="hSat">
-      <div class="head sat"><span class="t" id="hSat">SAT</span><span class="d">Tek kurum boşaltıyor<br>alış dağınık</span><span class="c num" id="cSat">–</span></div>
-      <div id="listSat"><div class="state">Yükleniyor…</div></div>
+    <section class="board sat" aria-label="SAT">
+      <div class="bh"><span class="tag">SAT</span><span class="desc">Tek kurum boşaltıyor, alış dağınık</span><span class="cnt"><b id="cSat">0</b> hisse</span></div>
+      <div class="scroll" id="listSat"><div class="empty">Yükleniyor…</div></div>
     </section>
   </div>
 </main>
@@ -151,51 +130,47 @@ footer{max-width:1240px;margin:0 auto;padding-inline:20px;padding-block:0 28px;f
     try { const d = new Date(iso); return d.toLocaleDateString('tr-TR',{day:'2-digit',month:'2-digit',year:'numeric'}) + ' ' + d.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'}); }
     catch(e){ return iso; }
   }
-  function diffChip(v, side){
-    if (v == null || isNaN(v)) return '<span class="chip near">–</span>';
-    const cls = side === 'al' ? (v <= 0 ? 'below' : 'near') : (v >= 0 ? 'above' : 'near');
-    return '<span class="chip ' + cls + ' num">' + (v > 0 ? '+' : '') + nf(v) + '%</span>';
+  function pct(v){
+    const w = Math.max(0, Math.min(100, v || 0));
+    return '<span class="pct"><span class="n">' + nf(v) + '</span><span class="meter" aria-hidden="true"><i style="width:' + w + '%"></i></span></span>';
   }
-  function card(r, side){
-    const lead = side === 'al' ? 'Alan' : 'Satan';
-    const opp = side === 'al' ? 'Satışta en büyük' : 'Alışta en büyük';
-    const costLbl = side === 'al' ? 'Alıcı maliyeti' : 'Satıcı maliyeti';
-    const oppCostLbl = side === 'al' ? 'Satıcı maliyeti' : 'Alıcı maliyeti';
-    const w = Math.max(0, Math.min(100, r.pct || 0));
-    return '<article class="card ' + side + '">' +
-      '<div class="r1"><span class="sym">' + esc(r.sym) + '</span><span class="px num">' + nf(r.last) + '<small>TL</small></span></div>' +
-      '<div class="dom"><span class="who"><em>' + lead + '</em>' + esc(r.broker) + '</span><span class="pct num">%' + nf(r.pct) + '</span>' +
-        '<span class="bar" aria-hidden="true"><b style="width:' + w + '%"></b><s></s></span></div>' +
-      '<dl class="kv">' +
-        '<div><dt>' + costLbl + '</dt><dd class="num">' + nf(r.cost) + '</dd></div>' +
-        '<div><dt>Fiyat / maliyet</dt><dd>' + diffChip(r.diff, side) + '</dd></div>' +
-        '<div><dt>' + opp + '</dt><dd title="' + esc(r.oppBroker) + '">' + esc(r.oppBroker || '–') + ' <span class="num">%' + nf(r.oppPct) + '</span></dd></div>' +
-        '<div><dt>' + oppCostLbl + '</dt><dd class="num">' + nf(r.oppCost) + '</dd></div>' +
-      '</dl></article>';
+  function diff(v, side){
+    if (v == null || isNaN(v)) return '<span class="dim">–</span>';
+    const good = side === 'al' ? v <= 0 : v >= 0;
+    const cls = v === 0 ? 'flat' : (good ? 'good' : 'flat');
+    return '<span class="d ' + cls + '">' + (v > 0 ? '+' : '') + nf(v) + '%</span>';
   }
-  function list(el, rows, side, emptyMsg){
-    el.innerHTML = rows && rows.length
-      ? '<div style="display:flex;flex-direction:column;gap:10px">' + rows.map(r => card(r, side)).join('') + '</div>'
-      : '<div class="empty">' + esc(emptyMsg) + '</div>';
+  function table(rows, side){
+    const lead = side === 'al' ? 'Alan' : 'Satan', opp = side === 'al' ? 'Satışta en büyük' : 'Alışta en büyük';
+    let h = '<table><thead><tr>' +
+      '<th class="l">Sembol</th><th>Son</th>' +
+      '<th class="l grp">' + lead + '</th><th>Pay %</th><th>Maliyet</th><th>Fark</th>' +
+      '<th class="l grp">' + opp + '</th><th>Pay %</th><th>Maliyet</th>' +
+      '</tr></thead><tbody>';
+    rows.forEach(r => {
+      h += '<tr><td class="l sym">' + esc(r.sym) + '</td><td class="n">' + nf(r.last) + '</td>' +
+        '<td class="l grp brk" title="' + esc(r.broker) + '">' + esc(r.broker) + '</td><td>' + pct(r.pct) + '</td><td class="n">' + nf(r.cost) + '</td><td>' + diff(r.diff, side) + '</td>' +
+        '<td class="l grp brk" title="' + esc(r.oppBroker) + '">' + esc(r.oppBroker || '–') + '</td><td class="n">' + nf(r.oppPct) + '</td><td class="n">' + nf(r.oppCost) + '</td></tr>';
+    });
+    return h + '</tbody></table>';
   }
   function render(){
     const s = scans.find(x => x.id === selectedId) || scans[0];
-    if (!s){
-      $('#listAl').innerHTML = $('#listSat').innerHTML = '<div class="empty">Henüz tarama kaydı yok.</div>';
-      return;
-    }
+    if (!s){ $('#listAl').innerHTML = $('#listSat').innerHTML = '<div class="empty">Henüz tarama kaydı yok.</div>'; return; }
     $('#asof').textContent = fmtAt(s.at);
-    const ph = $('#phase'); ph.textContent = s.phase || '—'; ph.classList.toggle('close', (s.phase || '').toLowerCase().indexOf('kapan') === 0);
-    const r = s.rules || {buy:50, sell:50, cost:1};
-    $('#ruleAl').textContent = 'AL: alışta tek kurum > %' + r.buy + ' · satışta hiçbir kurum > %' + r.sell + ' değil · fiyat alıcı maliyetinin en fazla %' + nf(r.cost, r.cost % 1 ? 1 : 0) + ' üstünde';
-    $('#ruleSat').textContent = 'SAT: satışta tek kurum > %' + r.buy + ' · alışta hiçbir kurum > %' + r.sell + ' değil · fiyat satıcı maliyetinin en fazla %' + nf(r.cost, r.cost % 1 ? 1 : 0) + ' altında';
-    $('#uni').textContent = (s.universeLabel || 'BIST 100') + ' · Aracı kurum dağılımı';
+    const ph = $('#phase'); ph.textContent = s.phase || '—'; ph.classList.toggle('closed', (s.phase || '').toLowerCase().indexOf('kapan') === 0);
+    $('#uni').textContent = s.universeLabel || 'BIST 100';
+    const r = s.rules || {buy:50, sell:50, cost:1}, c = nf(r.cost, r.cost % 1 ? 1 : 0);
+    $('#ruleAl').textContent = 'Alışta tek kurum > %' + r.buy + ', satışta hiçbiri > %' + r.sell + ' değil, fiyat alıcı maliyetinin en çok %' + c + ' üstünde';
+    $('#ruleSat').textContent = 'Satışta tek kurum > %' + r.buy + ', alışta hiçbiri > %' + r.sell + ' değil, fiyat satıcı maliyetinin en çok %' + c + ' altında';
     const note = $('#note'); note.hidden = !s.note; note.textContent = s.note || '';
     const al = (s.al || []).slice().sort((a,b) => (a.diff ?? 99) - (b.diff ?? 99));
     const sat = (s.sat || []).slice().sort((a,b) => (b.diff ?? -99) - (a.diff ?? -99));
-    $('#cAl').textContent = al.length; $('#cSat').textContent = s.satScanned === false ? '–' : sat.length;
-    list($('#listAl'), al, 'al', 'Bu taramada AL kuralına uyan hisse yok.');
-    list($('#listSat'), sat, 'sat', s.satScanned === false ? 'Bu taramada SAT kuralı çalıştırılmadı.' : 'Bu taramada SAT kuralına uyan hisse yok.');
+    const satNA = s.satScanned === false;
+    $('#cAl').textContent = al.length; $('#cSat').textContent = satNA ? '–' : sat.length;
+    $('#sAl').textContent = al.length; $('#sSat').textContent = satNA ? '–' : sat.length;
+    $('#listAl').innerHTML = al.length ? table(al, 'al') : '<div class="empty">Bu taramada AL kuralına uyan hisse yok.</div>';
+    $('#listSat').innerHTML = sat.length ? table(sat, 'sat') : '<div class="empty">' + (satNA ? 'Bu taramada SAT kuralı çalıştırılmadı.' : 'Bu taramada SAT kuralına uyan hisse yok.') + '</div>';
   }
   function fillSelect(){
     const sel = $('#scanSel');
@@ -223,6 +198,5 @@ footer{max-width:1240px;margin:0 auto;padding-inline:20px;padding-block:0 28px;f
   document.addEventListener('visibilitychange', () => { if (!document.hidden) load(); });
 })();
 </script>
-
 </body>
 </html>
